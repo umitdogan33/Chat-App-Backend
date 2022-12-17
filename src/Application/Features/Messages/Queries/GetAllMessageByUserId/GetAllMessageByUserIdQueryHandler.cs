@@ -17,7 +17,8 @@ public class GetAllMessageByUserIdQueryHandler:IRequestHandler<GetAllMessageByUs
 
     public async Task<IList<MessageEntity>> Handle(GetAllMessageByUserIdQuery request, CancellationToken cancellationToken)
     {
-        var data     = await _messageRepository.GetAllAsync(p=>(p.ReceverId == request.UserId && p.SenderId == request.UserId2) || (p.ReceverId == request.UserId2 && p.SenderId == request.UserId));
+        var data = await _messageRepository.GetAllAsync(p=>(p.ReceverId == request.UserId && p.SenderId == request.UserId2) || (p.ReceverId == request.UserId2 && p.SenderId == request.UserId));
+        data = data.OrderBy(x=>x.CreateDate).ToList();
         return data;
     }
 }

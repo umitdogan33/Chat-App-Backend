@@ -1,4 +1,5 @@
 using Application.Features.Messages.Queries.GetAllMessageByUserId;
+using Application.Features.Messages.Queries.GetLastContact;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,17 @@ public class MessageController:ControllerBase
         {
             UserId = userId,
             UserId2 = userId2
+        };
+        var data = await _mediator.Send(entity);
+        return Ok(data);
+    }
+    
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetLastContact([FromQuery]string userId)
+    {
+        GetLastContactQuery entity = new()
+        {
+            UserId = userId,
         };
         var data = await _mediator.Send(entity);
         return Ok(data);

@@ -1,4 +1,5 @@
 ﻿using Application.Common.Utilities;
+using Application.Features.Messages.Dtos;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,7 @@ public class BaseDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<MessageEntity> Messages { get; set; }
     public DbSet<Friend> Friends { get; set; }
+    public DbSet<LastContactDto> GetLastContacts{ get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
     {
@@ -23,6 +25,8 @@ public class BaseDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<LastContactDto>().HasNoKey();
+        
         modelBuilder.Entity<User>(p =>
         {
             p.ToTable("Users").HasKey(k => k.Id);
@@ -59,7 +63,7 @@ public class BaseDbContext : DbContext
 
         HashingHelper.CreatePasswordHash("SdQnv96ZA4$P78G1Ab3ONa$HC!tDVi", out var passwordHash, out var passwordSalt);
 
-        User[] userEntitySeeds = { new("ce1bf1ec-4854-49b0-a7cc-6c8a902e0aa9", "admin", "admin", "admin@admin.com", passwordSalt, passwordHash, true, Domain.Enums.AuthenticatorType.None,"admin",null) };
+        User[] userEntitySeeds = { new("ce1bf1ec-4854-49b0-a7cc-6c8a902e0aa9", "admin", "admin", "admin@admin.com", passwordSalt, passwordHash, true, Domain.Enums.AuthenticatorType.None,"admin",null,"") };
         modelBuilder.Entity<User>().HasData(userEntitySeeds);
 
         OperationClaim[] operationClaimEntitySeeds = { new("0460d8c9-75a6-4d68-abc3-f249523f3e93", "admin") };

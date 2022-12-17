@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Mono.Unix;
 
 namespace Application.Common.Utilities
 {
@@ -32,7 +33,7 @@ namespace Application.Common.Utilities
             }
 
             CheckDirectoryExists(_currentDirectory + _folderName);
-            CreateImageFile(_currentDirectory + _folderName + randomName + type, file);
+            CreateImageFile( randomName + type, file);
             return (_folderName + randomName + type).Replace("\\", "/");
         }
 
@@ -91,7 +92,7 @@ namespace Application.Common.Utilities
         }
         private static void CreateImageFile(string directory, IFormFile file)
         {
-            using (FileStream fs = File.Create(directory))
+            using (FileStream fs = File.Create("/home/umit/Desktop/Harddisk/Repos/ChatAppBackend/src/WebAPI/wwwroot/Files/"+directory))
             {
                 file.CopyTo(fs);
                 fs.Flush();

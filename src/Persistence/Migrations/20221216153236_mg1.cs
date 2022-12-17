@@ -24,13 +24,24 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GetLastContacts",
+                columns: table => new
+                {
+                    ContactId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Messages",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     SenderId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ReceverId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,6 +73,7 @@ namespace Persistence.Migrations
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    FeelText = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AuthenticatorType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -116,6 +128,18 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+            
+            var sp = @"CREATE procedure GetLastContact 
+@UserId varchar(500)
+As
+BEGIN
+SELECT DISTINCT ReceverId as ContactId FROM Messages WHERE SenderId=@UserId
+UNION
+SELECT DISTINCT SenderId as ContactId FROM Messages WHERE ReceverId=@UserId
+END
+";
+            migrationBuilder.Sql(sp);
+
 
             migrationBuilder.InsertData(
                 table: "OperationClaims",
@@ -124,8 +148,8 @@ namespace Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "AuthenticatorType", "Email", "FirstName", "LastName", "PasswordHash", "PasswordSalt", "PhotoUrl", "Status", "Username" },
-                values: new object[] { "ce1bf1ec-4854-49b0-a7cc-6c8a902e0aa9", 0, "admin@admin.com", "admin", "admin", new byte[] { 156, 253, 176, 223, 78, 176, 16, 221, 34, 239, 237, 141, 213, 207, 219, 51, 42, 117, 4, 29, 119, 114, 190, 248, 12, 78, 249, 45, 81, 130, 117, 207, 91, 120, 38, 52, 243, 133, 33, 192, 19, 26, 232, 221, 106, 150, 21, 94, 62, 218, 189, 10, 61, 171, 124, 137, 164, 5, 28, 88, 163, 233, 35, 15 }, new byte[] { 49, 85, 240, 118, 38, 151, 157, 36, 151, 133, 231, 128, 48, 131, 48, 152, 43, 41, 84, 75, 164, 180, 171, 37, 96, 136, 170, 111, 138, 40, 134, 20, 139, 4, 6, 9, 236, 65, 92, 3, 216, 90, 64, 178, 224, 210, 215, 241, 103, 120, 180, 141, 247, 195, 255, 100, 165, 76, 112, 170, 140, 124, 5, 233, 83, 255, 138, 19, 18, 206, 210, 199, 18, 94, 11, 107, 248, 180, 241, 91, 62, 190, 148, 197, 226, 150, 199, 153, 111, 231, 190, 155, 36, 243, 98, 38, 152, 151, 116, 32, 238, 58, 40, 33, 84, 181, 218, 14, 223, 8, 114, 237, 114, 110, 253, 87, 64, 141, 210, 217, 240, 215, 255, 127, 142, 24, 178, 221 }, null, true, "admin" });
+                columns: new[] { "Id", "AuthenticatorType", "Email", "FeelText", "FirstName", "LastName", "PasswordHash", "PasswordSalt", "PhotoUrl", "Status", "Username" },
+                values: new object[] { "ce1bf1ec-4854-49b0-a7cc-6c8a902e0aa9", 0, "admin@admin.com", "", "admin", "admin", new byte[] { 67, 75, 133, 234, 67, 133, 202, 173, 111, 57, 39, 201, 186, 170, 208, 3, 34, 101, 3, 69, 76, 165, 128, 230, 50, 246, 0, 80, 139, 207, 75, 34, 78, 5, 44, 140, 144, 15, 6, 28, 106, 103, 102, 208, 133, 228, 213, 196, 49, 254, 172, 235, 176, 149, 79, 59, 10, 254, 180, 42, 24, 115, 104, 3 }, new byte[] { 254, 28, 113, 169, 184, 218, 72, 235, 171, 159, 182, 89, 199, 235, 74, 84, 128, 96, 16, 155, 63, 74, 65, 20, 197, 157, 114, 160, 238, 226, 49, 73, 219, 224, 190, 183, 136, 70, 91, 30, 151, 80, 92, 203, 167, 64, 102, 7, 238, 51, 3, 144, 234, 55, 208, 6, 245, 34, 115, 200, 236, 37, 96, 111, 23, 246, 82, 38, 44, 153, 3, 3, 40, 211, 208, 254, 216, 115, 50, 209, 202, 101, 52, 240, 76, 188, 33, 225, 145, 52, 19, 68, 47, 239, 59, 161, 176, 80, 255, 10, 55, 223, 76, 73, 28, 118, 138, 115, 206, 118, 175, 213, 126, 52, 146, 6, 220, 12, 29, 150, 15, 12, 148, 232, 180, 185, 22, 120 }, null, true, "admin" });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
@@ -152,6 +176,9 @@ namespace Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Friends");
+
+            migrationBuilder.DropTable(
+                name: "GetLastContacts");
 
             migrationBuilder.DropTable(
                 name: "Messages");

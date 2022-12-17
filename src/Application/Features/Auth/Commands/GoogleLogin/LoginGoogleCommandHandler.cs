@@ -52,7 +52,7 @@ public class LoginGoogleCommandHandler : IRequestHandler<GoogleLoginCommand, Log
             include: m => m.Include(c => c.UserOperationClaims).ThenInclude(x => x.OperationClaim));
 
         if (user == null)
-           user = await _userRepository.AddAsync( new User(Guid.NewGuid().ToString(),request.FirstName,request.LastName,request.Email,null,null,true,Domain.Enums.AuthenticatorType.None,request.FirstName+request.LastName,request.PhotoUrl));
+           user = await _userRepository.AddAsync( new User(Guid.NewGuid().ToString(),request.FirstName,request.LastName,request.Email,null,null,true,Domain.Enums.AuthenticatorType.None,request.FirstName+request.LastName,request.PhotoUrl,""));
 
         var token = _tokenHelper.CreateRefreshToken(user, remoteIpAddress);
         await _refreshTokenRepository.AddAsync(token);

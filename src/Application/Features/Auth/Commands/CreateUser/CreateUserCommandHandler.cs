@@ -36,7 +36,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Creat
 
         AuthBusinessRules.BeUniqueEmail(findedData);
         HashingHelper.CreatePasswordHash(request.Password, out var passwordHash, out var passwordSalt);
-        var url = FileUploadHelper.Upload(request.photo);
+        //var url = FileUploadHelper.Upload(request.photo);
         User user = new()
         {
             Id = Guid.NewGuid().ToString(),
@@ -48,7 +48,8 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Creat
             Username = request.FirstName + request.LastName,
             AuthenticatorType = AuthenticatorType.None,
             Status = true,
-            PhotoUrl = url
+            PhotoUrl = "url",
+            FeelText = "d"
         };
 
         var createdUser = await _userRepository.AddAsync(user);

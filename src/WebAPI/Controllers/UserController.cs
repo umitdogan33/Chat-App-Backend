@@ -1,4 +1,5 @@
 ﻿using Application.Features.Users.Commands.AddFriendCommand;
+using Application.Features.Users.Commands.ChangeUsername;
 using Application.Features.Users.Queries.GetAllByOnline;
 using Application.Features.Users.Queries.GetById;
 using Application.Features.Users.Queries.GetListUser;
@@ -44,13 +45,19 @@ namespace WebAPI.Controllers
         [HttpGet("PendingFriendRequests")]
         public async Task<IActionResult> PendingFriendRequests([FromQuery] PendingFriendRequestsQuery query)
         {
-            var data = _mediator.Send(query);
+            var data = await _mediator.Send(query);
             return Ok(data);
         }
 
         [HttpPost("[action]")]
         public async Task<IActionResult> SendFriendRequest(AddFriendCommand command) {
-            var data = _mediator.Send(command);
+            var data =await _mediator.Send(command);
+            return Ok(data);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ChangeUsername(ChangeFeelTextCommand command) {
+            var data =await _mediator.Send(command);
             return Ok(data);
         }
 

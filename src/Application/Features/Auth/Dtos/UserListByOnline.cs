@@ -13,6 +13,7 @@ namespace Application.Features.Auth.Dtos
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string FeelText { get; set; }
         public string Email { get; set; }
     }
 }
