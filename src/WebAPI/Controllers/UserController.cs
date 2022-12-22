@@ -1,5 +1,7 @@
-﻿using Application.Features.Users.Commands.AddFriendCommand;
+﻿using Application.Features.Auth.Commands.UpdateUser;
+using Application.Features.Users.Commands.AddFriendCommand;
 using Application.Features.Users.Commands.ChangeUsername;
+using Application.Features.Users.Commands.UpdateUserPhotoCommand;
 using Application.Features.Users.Queries.GetAllByOnline;
 using Application.Features.Users.Queries.GetById;
 using Application.Features.Users.Queries.GetListUser;
@@ -48,6 +50,21 @@ namespace WebAPI.Controllers
             var data = await _mediator.Send(query);
             return Ok(data);
         }
+        
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UpdateUser(UpdateUserCommand command) {
+            var data =await _mediator.Send(command);
+            return Ok(data);
+        }
+        
+        [HttpPost("[action]")]
+        public async Task<IActionResult> UpdateUserPhoto([FromForm]IFormFile file,[FromForm]string userId)
+        {
+            UpdateUserPhotoCommand command = new() {file = file,UserId = userId};
+            var data =await _mediator.Send(command);
+            return Ok(data);
+        }
+        
 
         [HttpPost("[action]")]
         public async Task<IActionResult> SendFriendRequest(AddFriendCommand command) {

@@ -25,6 +25,8 @@ namespace Domain.Entities
         public string ReceverId { get; set; }
         public string Message { get; set; }
 
+        public bool IsPhoto { get; set; }
+
         public DateTime CreateDate { get; set; }
 
     }

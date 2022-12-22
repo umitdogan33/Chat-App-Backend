@@ -23,7 +23,31 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot" />
+      <Folder Include="wwwroot\Files" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\Files\02c50bc6-7cc8-4a7f-b239-759d37ed30cd.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\1ade1f26-fb26-4b79-8f45-73a299945e84.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\2572ccf6-c5bf-400b-a49b-79840c2b5e9b.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\359a0774-dbff-48bc-b121-56e34c43b237.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\3fc1f0c2-be90-417e-9140-0986f8340d8a.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\47c14d8f-e4ea-4803-bef3-8528a98be097.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\50cb8645-77bf-4218-b4ad-1b07b22e0c1e.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\6551c8ae-25e3-4304-98d5-93d9a4f98d84.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\6d22b16c-57a9-49a1-9dee-9260953b169b.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\72bbb80e-5b08-4d69-bd27-a4ee493baa6f.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\8148658e-f977-4bbd-98ad-901c5e63b400.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\8d9f03df-80ef-408e-a297-b9526daff20f.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\9051d10a-5894-4939-97dc-6abc8d0ddb73.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\92c823c5-fcaa-439a-98ce-5538bb951ef1.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\96869d77-ab7b-4c9c-8f2d-1167b15e2104.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\9fd5df28-afca-4035-8366-f4883f81ec61.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\b17d5d15-bdbd-46a2-8890-4e32ac0f313a.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\d739d0bc-058c-4bd1-856d-fe9427a0792d.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\e96798cb-48b0-410e-9c7d-54291ce79d7b.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\ef2b84ad-2d05-4299-a12a-74bd250ba7ca.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Files\f355ed74-90bb-44bb-ab1d-1ed5e38fe1c2.png" />
     </ItemGroup>
 
 </Project>

@@ -41,6 +41,7 @@ namespace Persistence.Migrations
                     SenderId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ReceverId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsPhoto = table.Column<bool>(type: "bit", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -128,7 +129,7 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-            
+                
             var sp = @"CREATE procedure GetLastContact 
 @UserId varchar(500)
 As
@@ -149,7 +150,7 @@ END
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AuthenticatorType", "Email", "FeelText", "FirstName", "LastName", "PasswordHash", "PasswordSalt", "PhotoUrl", "Status", "Username" },
-                values: new object[] { "ce1bf1ec-4854-49b0-a7cc-6c8a902e0aa9", 0, "admin@admin.com", "", "admin", "admin", new byte[] { 67, 75, 133, 234, 67, 133, 202, 173, 111, 57, 39, 201, 186, 170, 208, 3, 34, 101, 3, 69, 76, 165, 128, 230, 50, 246, 0, 80, 139, 207, 75, 34, 78, 5, 44, 140, 144, 15, 6, 28, 106, 103, 102, 208, 133, 228, 213, 196, 49, 254, 172, 235, 176, 149, 79, 59, 10, 254, 180, 42, 24, 115, 104, 3 }, new byte[] { 254, 28, 113, 169, 184, 218, 72, 235, 171, 159, 182, 89, 199, 235, 74, 84, 128, 96, 16, 155, 63, 74, 65, 20, 197, 157, 114, 160, 238, 226, 49, 73, 219, 224, 190, 183, 136, 70, 91, 30, 151, 80, 92, 203, 167, 64, 102, 7, 238, 51, 3, 144, 234, 55, 208, 6, 245, 34, 115, 200, 236, 37, 96, 111, 23, 246, 82, 38, 44, 153, 3, 3, 40, 211, 208, 254, 216, 115, 50, 209, 202, 101, 52, 240, 76, 188, 33, 225, 145, 52, 19, 68, 47, 239, 59, 161, 176, 80, 255, 10, 55, 223, 76, 73, 28, 118, 138, 115, 206, 118, 175, 213, 126, 52, 146, 6, 220, 12, 29, 150, 15, 12, 148, 232, 180, 185, 22, 120 }, null, true, "admin" });
+                values: new object[] { "ce1bf1ec-4854-49b0-a7cc-6c8a902e0aa9", 0, "admin@admin.com", "", "admin", "admin", new byte[] { 61, 231, 99, 43, 233, 0, 217, 79, 138, 49, 58, 175, 174, 37, 229, 180, 82, 104, 19, 118, 33, 204, 2, 176, 233, 229, 24, 184, 209, 55, 242, 231, 43, 164, 178, 76, 85, 254, 182, 68, 47, 174, 196, 119, 101, 163, 175, 64, 99, 237, 204, 2, 3, 196, 236, 48, 131, 39, 142, 196, 220, 189, 79, 12 }, new byte[] { 231, 83, 161, 247, 242, 116, 170, 11, 224, 81, 150, 248, 119, 59, 126, 130, 142, 162, 39, 69, 67, 162, 26, 171, 217, 1, 222, 154, 235, 17, 236, 48, 10, 218, 178, 99, 45, 118, 178, 168, 222, 241, 207, 9, 25, 174, 49, 105, 186, 97, 92, 18, 50, 112, 52, 43, 250, 148, 164, 111, 118, 48, 54, 228, 86, 4, 94, 158, 166, 239, 197, 98, 237, 14, 106, 176, 46, 79, 240, 185, 246, 11, 69, 118, 84, 246, 135, 240, 23, 131, 97, 119, 135, 57, 250, 193, 48, 189, 218, 5, 238, 13, 48, 165, 90, 82, 212, 111, 160, 190, 80, 229, 167, 151, 39, 156, 55, 233, 229, 80, 40, 94, 185, 115, 181, 32, 193, 98 }, null, true, "admin" });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",

@@ -18,12 +18,12 @@ namespace Application.Common.Hubs
 
         public async Task SendMessageAsync(SendMessageDto messageDto)
         {
-            if (messageDto.Message == null || messageDto.ReceiverUserId == null) throw new BusinessException("message or user is empty");
+            if (messageDto.Message == null || messageDto.ReceiverUserId == null) return;
             var data = ConnectedUser.ClientsData.FirstOrDefault(p => p.UserId == messageDto.ReceiverUserId);
             if (data == null) throw new BusinessException("user is not found");
             var user = Context.User.Claims.FirstOrDefault(a => a.Type =="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
 
-            MessageEntity messageEntity = new() { Id=Guid.NewGuid().ToString(), Message = messageDto.Message, ReceverId = data.UserId, SenderId = user,CreateDate  = DateTime.UtcNow};
+            MessageEntity messageEntity = new() { Id=Guid.NewGuid().ToString(), Message = messageDto.Message, ReceverId = data.UserId, SenderId = user,CreateDate  = DateTime.UtcNow,IsPhoto = messageDto.IsPhoto};
             await _messageRepository.AddAsync(messageEntity);
             await Clients.Clients(data.ConnectionId, Context.ConnectionId).SendAsync("receiveMessage", messageEntity);
         }

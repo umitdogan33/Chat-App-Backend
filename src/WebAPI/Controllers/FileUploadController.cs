@@ -8,15 +8,21 @@ namespace WebAPI.Controllers
     [ApiController]
     public class FileUploadController : ControllerBase
     {
+        private List<String> datas { get; set; }
+        public FileUploadController()
+        {
+            this.datas = new();
+        }
         [HttpPost]
         public async Task<IActionResult> UploadFile([FromForm] List<IFormFile> files)
         {
             foreach (var formFile in files)
             {
-                FileUploadHelper.Upload(formFile);
+                var data = FileUploadHelper.Upload(formFile);
+                datas.Add(data);
             }
 
-            return Ok("success");
+            return Ok(datas);
         }
     }
 }
